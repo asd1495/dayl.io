@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import DiaryEntry from './DiaryEntry'; // Import the DiaryEntry component
-import '../styles/MoodSelection.scss'; // Import the SCSS stylesheet
+import DiaryEntry from './DiaryEntry';
+import '../styles/MoodSelection.scss';
 
 const MoodSelection = ({ onEntrySubmit }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMood, setSelectedMood] = useState('');
   const [entryText, setEntryText] = useState('');
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [analysis, setAnalysis] = useState(''); // State to store analysis
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -29,17 +30,37 @@ const MoodSelection = ({ onEntrySubmit }) => {
     const parsedDate = new Date(inputDate);
 
     if (!isNaN(parsedDate.getTime())) {
-      setSelectedDate(parsedDate); // Set the Date object
+      setSelectedDate(parsedDate);
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // Create an entry object with mood, date, and text
     const entry = {
       sentiment: selectedMood,
-      date: selectedDate.toISOString(), // Convert Date to ISO string
+      date: selectedDate.toISOString(),
       text: entryText,
     };
+
+    // Send the entry text to the backend for analysis
+    try {
+      const response = await fetch('/analyzeSentiment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ textToAnalyze: entryText }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setAnalysis(data.sentimentAnalysis); // Set the analysis result
+      } else {
+        console.error('Failed to fetch analysis');
+      }
+    } catch (error) {
+      console.error('An error occurred while fetching analysis', error);
+    }
 
     // Call the onEntrySubmit callback to pass the entry data to the parent component
     onEntrySubmit(entry);
@@ -72,7 +93,7 @@ const MoodSelection = ({ onEntrySubmit }) => {
               <input
                 type="date"
                 id="datePicker"
-                value={selectedDate.toISOString().split('T')[0]} // Format Date to "YYYY-MM-DD"
+                value={selectedDate.toISOString().split('T')[0]}
                 onChange={handleDateChange}
               />
             </div>
@@ -87,12 +108,14 @@ const MoodSelection = ({ onEntrySubmit }) => {
           </div>
         </div>
       )}
+
       {/* Pass the selected mood, date, and entry text to DiaryEntry */}
       {selectedMood && (
         <DiaryEntry
           mood={selectedMood}
           date={selectedDate}
           text={entryText}
+          analysis={analysis} // Pass the analysis result
         />
       )}
     </div>
