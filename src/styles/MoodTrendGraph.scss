@@ -1,0 +1,45 @@
+/* MoodTrendGraph.scss */
+
+.mood-trend {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.chart-container {
+  width: 80%;
+  max-width: 600px;
+  margin-top: 20px;
+  position: relative; /* Add this to enable positioning */
+}
+
+/* Position the graph container at the bottom */
+.chart-container::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none; /* Allow interactions with elements behind */
+  z-index: 1; /* Ensure it's above the chart */
+}
+
+h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  z-index: 2; /* Ensure it's above the overlay */
+}
+
+/* Apply different colors to each line */
+.recharts-legend-item-text {
+  fill: blue; /* Default color for the line */
+}
+
+/* Customize the colors for each line */
+.recharts-line-curve {
+  stroke: red; /* Color for the line */
+}
+
+/* Add more styles for additional lines as needed */
