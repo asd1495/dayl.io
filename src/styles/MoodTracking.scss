@@ -1,0 +1,45 @@
+/* MoodTracking.scss */
+
+.mood-tracking {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+
+.mood-entry {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 8px;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.mood-date {
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.mood-emoji {
+  font-size: 24px;
+}
+
+/* Use escaped unicode characters for emojis as class names */
+.\1F614 {
+  background-color: blue;
+}
+
+.\1F610 {
+  color: gray;
+}
+
+.\1F642 {
+  color: green;
+}
+
+.\1F603 {
+  color: pink;
+}
