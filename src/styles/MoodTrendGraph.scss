@@ -11,7 +11,7 @@
   width: 80%;
   max-width: 600px;
   margin-top: 20px;
-  position: relative; /* Add this to enable positioning */
+  position: relative;
 }
 
 /* Position the graph container at the bottom */
@@ -22,24 +22,42 @@
   height: 100%;
   top: 0;
   left: 0;
-  pointer-events: none; /* Allow interactions with elements behind */
-  z-index: 1; /* Ensure it's above the chart */
+  pointer-events: none;
+  z-index: 1;
 }
 
 h2 {
   font-size: 20px;
   margin-bottom: 10px;
-  z-index: 2; /* Ensure it's above the overlay */
+  z-index: 2;
 }
 
-/* Apply different colors to each line */
+/* Apply different colors to each bar */
 .recharts-legend-item-text {
-  fill: blue; /* Default color for the line */
+  fill: blue; /* Default color for the bar */
 }
 
-/* Customize the colors for each line */
-.recharts-line-curve {
-  stroke: red; /* Color for the line */
+/* Customize the colors for each bar */
+.recharts-bar-rect {
+  fill: red; /* Color for the bar */
 }
 
-/* Add more styles for additional lines as needed */
+/* Add more styles for additional bars as needed */
+
+/* Responsive adjustments for tablet screens */
+@media screen and (max-width: 768px) {
+  .chart-container {
+    width: 100%; /* Adjusted to 100% for tablet screens */
+    max-width: 100%; /* Adjusted to 100% for tablet screens */
+    padding: 0 20px; /* Add padding to prevent overflow */
+  }
+}
+
+/* Responsive adjustments for mobile screens */
+@media screen and (max-width: 480px) {
+  .chart-container {
+    width: 100%; /* Adjusted to 100% for mobile screens */
+    max-width: 100%; /* Adjusted to 100% for mobile screens */
+    padding: 0 10px; /* Add more padding for mobile screens */
+  }
+}

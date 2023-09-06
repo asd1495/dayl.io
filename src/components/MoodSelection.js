@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import DiaryEntry from './DiaryEntry'; // Import the DiaryEntry component
 import '../styles/MoodSelection.scss'; // Import the SCSS stylesheet
 
 const MoodSelection = ({ onEntrySubmit }) => {
@@ -26,7 +27,7 @@ const MoodSelection = ({ onEntrySubmit }) => {
   const handleDateChange = (event) => {
     const inputDate = event.target.value;
     const parsedDate = new Date(inputDate);
-  
+
     if (!isNaN(parsedDate.getTime())) {
       setSelectedDate(parsedDate); // Set the Date object
     }
@@ -36,7 +37,7 @@ const MoodSelection = ({ onEntrySubmit }) => {
     // Create an entry object with mood, date, and text
     const entry = {
       sentiment: selectedMood,
-      date: selectedDate.toLocaleDateString(), // Convert Date to a formatted string
+      date: selectedDate.toISOString(), // Convert Date to ISO string
       text: entryText,
     };
 
@@ -60,10 +61,10 @@ const MoodSelection = ({ onEntrySubmit }) => {
           <div className="modal-content">
             <h2>Selecciona tu estado de ánimo</h2>
             <select value={selectedMood} onChange={handleMoodChange}>
-              <option value="&#128542;">😔 Triste</option>
-              <option value="&#128528;">😐 Neutral</option>
-              <option value="&#128578;">🙂 Feliz</option>
-              <option value="&#128513;">😀 Muy Feliz</option>
+              <option value="😔">😔 Triste</option>
+              <option value="😐">😐 Neutral</option>
+              <option value="🙂">🙂 Feliz</option>
+              <option value="😀">😀 Muy Feliz</option>
             </select>
 
             <div>
@@ -85,6 +86,14 @@ const MoodSelection = ({ onEntrySubmit }) => {
             <button onClick={closeModal}>Cerrar</button>
           </div>
         </div>
+      )}
+      {/* Pass the selected mood, date, and entry text to DiaryEntry */}
+      {selectedMood && (
+        <DiaryEntry
+          mood={selectedMood}
+          date={selectedDate}
+          text={entryText}
+        />
       )}
     </div>
   );

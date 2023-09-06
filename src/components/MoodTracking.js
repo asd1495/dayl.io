@@ -1,4 +1,3 @@
-// MoodTracking.js
 import React from 'react';
 import '../styles/MoodTracking.scss';
 

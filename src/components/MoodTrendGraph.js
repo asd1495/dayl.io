@@ -20,7 +20,7 @@ const MoodTrendGraph = ({ moodEntries }) => {
 
     const data = Object.keys(counts).map((sentiment) => ({
       mood: sentiment,
-      frequency: counts[sentiment],
+      frecuencia: counts[sentiment],
     }));
 
     setMoodCounts(data);
@@ -36,7 +36,7 @@ const MoodTrendGraph = ({ moodEntries }) => {
           <CartesianGrid strokeDasharray="3 3" />
           <Tooltip />
           <Legend />
-          <Bar dataKey="Frecuencia" fill="#8884d8" />
+          <Bar dataKey="frecuencia" fill="#8884d8" />
         </BarChart>
       </div>
     </div>
